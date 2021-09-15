@@ -16,7 +16,7 @@ namespace Övning
             Console.WriteLine("Skriv ett djur man kan sätta \"en\" framför.");
             string djur = Console.ReadLine();
             
-            Console.WriteLine("Skriv ett mansnamn.");
+            Console.WriteLine("Skriv ett namn.");
             string namn = Console.ReadLine();
             
             Console.WriteLine("Skriv ett sätt att färdas.");
