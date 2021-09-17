@@ -19,6 +19,9 @@ namespace Övning
             Console.WriteLine("Skriv ett namn.");
             string namn = Console.ReadLine();
             
+            Console.WriteLine("Skriv ett adjektiv som *inte* slutar med ett \"t\".");
+            string adj2 = Console.ReadLine();
+            
             Console.WriteLine("Skriv ett sätt att färdas.");
             string färd = Console.ReadLine();
 
@@ -30,15 +33,6 @@ namespace Övning
             
             Console.WriteLine("Skriv ett adjektiv som slutar med ett \"t\".");
             string adj1 = Console.ReadLine();
-
-            Console.WriteLine("Skriv ett adjektiv som *inte* slutar med ett \"t\".");
-            string adj2 = Console.ReadLine();
-
-            
-
-
-            
-
 
             Console.WriteLine($"Det var en gång en {adj2} {djur} som hette {namn}.");
             Console.WriteLine($"{namn} bodde i ett {adj1} {sub1}.");
