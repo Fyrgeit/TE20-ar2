@@ -16,7 +16,7 @@ namespace InteraktivBerättelse
             
             if(ans1 == "stig")
             {
-                Console.WriteLine("Du följer stigen ett tag tills du kommer framm till en präktig borg.");
+                Console.WriteLine("Du följer stigen ett tag tills du kommer fram till en präktig borg.");
                 Console.WriteLine("Framför borgen står en hotfull vakt. Han stirrar argt på dig");
                 Console.WriteLine("Går du fram till vakten eller går du längs med borgen på avstånd? (vakt, gå)");
                 
@@ -42,7 +42,7 @@ namespace InteraktivBerättelse
             }
             else if(ans1 == "torka")
             {
-                Console.WriteLine("Du torkar ansiktet och följer sedan stigen ett tag tills du kommer framm till en präktig borg.");
+                Console.WriteLine("Du torkar ansiktet och följer sedan stigen ett tag tills du kommer fram till en präktig borg.");
                 Console.WriteLine("Framför borgen står en hotfull vakt. Han ler lungt till dig");
                 Console.WriteLine("Går du fram till vakten eller står du kvar och stirrar intensivt på honom? (vakt, stirra)");
 
@@ -55,7 +55,7 @@ namespace InteraktivBerättelse
                 else if(ans2 == "stirra")
                 {
                     Console.WriteLine("Vakten stirrar tillbaka ännu mer intensivt.");
-                    Console.WriteLine("Du kan inte hantera hans stirr. Du är död. Berättelsen är över.a");
+                    Console.WriteLine("Du kan inte hantera hans stirr. Du är död. Berättelsen är över.");
                     
                 }
                 else
