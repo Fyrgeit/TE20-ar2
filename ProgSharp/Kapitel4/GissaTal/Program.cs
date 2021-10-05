@@ -31,12 +31,10 @@ namespace GissaTal
                     if (gissning > tal)
                     {
                         Console.WriteLine("För högt.");
-                        
                     }
                     else if(gissning < tal)
                     {
                         Console.WriteLine("För lågt.");
-                        
                     }
                     else
                     {
