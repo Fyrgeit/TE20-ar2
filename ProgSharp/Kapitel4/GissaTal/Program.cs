@@ -16,8 +16,6 @@ namespace GissaTal
 
             while (ans == "y")
             {
-                
-
                 Console.WriteLine("Jag tänker på ett tal mellan 0 och 999.");
 
                 Random slump = new Random();
