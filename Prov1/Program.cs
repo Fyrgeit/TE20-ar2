@@ -6,10 +6,12 @@ namespace Prov1
     {
         static void Main(string[] args)
         {
-            string ans = "y";
+            string repeat = "y";
             
-            while (ans == "y")
+            //loop för att kunna köra igen
+            while (repeat == "y")
             {
+                //loop för att kunna avbryta ifall frågorna inte besvaras rätt
                 while (true)
                 {
                     //Rensar consolen
@@ -28,6 +30,7 @@ namespace Prov1
                     Console.Write("Ange din bruttolön i kr (10000kr - 45000kr): ");
                     int bruttoLön = int.Parse(Console.ReadLine());
 
+                    //felkod
                     if (bruttoLön < 10000)
                     {
                         Console.WriteLine($"{namn}, bruttolön måste vara mer än 10000kr!");
@@ -35,6 +38,7 @@ namespace Prov1
                         break;
                     }
 
+                    //felkod
                     if (bruttoLön > 45000)
                     {
                         Console.WriteLine($"{namn}, bruttolön måste vara mindre än 45000kr!");
@@ -42,9 +46,11 @@ namespace Prov1
                         break;
                     }
 
+                    //De andra frågorna
                     Console.Write("Ange din skattesats i % (10% - 40%): ");
                     float skatteSats = int.Parse(Console.ReadLine());
 
+                    //felkod
                     if (skatteSats < 10f)
                     {
                         Console.WriteLine($"{namn}, skattesatsen måste vara mer än 10%!");
@@ -52,6 +58,7 @@ namespace Prov1
                         break;
                     }
 
+                    //felkod
                     if (skatteSats > 40f)
                     {
                         Console.WriteLine($"{namn}, bruttolön måste vara mindre än 40%!");
@@ -68,8 +75,9 @@ namespace Prov1
                     Console.ReadKey();
                     break;
                 }
+                //fråga om att köra igen
                 Console.Write("Kör igen? (y/n) ");
-                ans = Console.ReadLine(); 
+                repeat = Console.ReadLine(); 
             }            
         }
     }
