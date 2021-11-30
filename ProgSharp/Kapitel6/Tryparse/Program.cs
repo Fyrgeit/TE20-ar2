@@ -45,3 +45,6 @@ namespace Tryparse
         }
     }
 }
+
+
+//bool = int.TryParse([input], out [output])
