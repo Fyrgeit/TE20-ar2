@@ -15,6 +15,8 @@ namespace Raket
 
             float xv = 0;
             float yv = 0;
+            float x = 0;
+            float y = 0;
 
             Raylib.InitWindow(screenWidth, screenHeight, "raket");
             Raylib.SetTargetFPS(60);
@@ -24,10 +26,9 @@ namespace Raket
             raket.y = 200;
             raket.width = 20;
             raket.height = 50;
+            
+            
 
-            Vector2 vektår = new Vector2();
-            vektår.x = 1;
-            vektår.y = 1;
 
             
             while (!Raylib.WindowShouldClose())
@@ -44,10 +45,10 @@ namespace Raket
                 yv += 0.1f;
 
                 //simulate
-                raket.x += xv;
-                raket.y += yv;
+                x += xv;
+                y += yv;
 
-                Raylib.DrawRectangleRec(raket, vektår, 0, Color.RED);
+                Raylib.DrawRectangleRec(raket, (Vector2){x, y}, 0, Color.RED);
 
                 Raylib.EndDrawing();
             }
