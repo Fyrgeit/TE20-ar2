@@ -14,7 +14,11 @@ namespace Raket
             Raylib.InitWindow(screenWidth, screenHeight, "raket");
             Raylib.SetTargetFPS(60);
 
-            //Camera2D camera = { 0 };
+            Camera2D camera = new Camera2D();
+            camera.zoom = 1f;
+            camera.offset = new Vector2(screenWidth / 2, screenHeight/2);
+
+            float gridScale = 100;
 
             Rectangle rocketSqr = new Rectangle();
             rocketSqr.x = 100;
@@ -26,14 +30,18 @@ namespace Raket
             Vector2 velocity = new Vector2(0, 0);
 
             float angle = 0;
+            float throttle = 0;
+            bool toggle = false;
 
             Color rocketClr = new Color(255, 0, 0, 255);
-            Color bgClr = new Color(255, 255, 255, 64);
+            Color bgClr = new Color(255, 255, 255, 255);
 
             while (!Raylib.WindowShouldClose())
             {
                 Raylib.BeginDrawing();
-                Raylib.DrawRectangle(0, 0, screenWidth, screenHeight, bgClr);
+                Raylib.BeginMode2D(camera);
+
+                Raylib.ClearBackground(bgClr);
                 Raylib.DrawRectangle(0, 0, 100, 100, Color.WHITE);
 
                 rocketClr = Color.BLACK;
@@ -41,12 +49,13 @@ namespace Raket
                 Raylib.DrawRectangle(0, 450, screenWidth, 50, Color.BLUE);
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE))
-                {
-                    velocity.X += (float)(0.25*Math.Sin(angle*Math.PI/180));
-                    velocity.Y -= (float)(0.25*Math.Cos(angle*Math.PI/180));
+                    toggle = !toggle;
 
-                    rocketClr = Color.RED;
-                }
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_UP) && throttle < 100)
+                    throttle ++;
+                
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN) && throttle > 0)
+                    throttle --;
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
                     angle += 3;
@@ -54,8 +63,16 @@ namespace Raket
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
                     angle -= 3;
 
+                //thrust
+                if (toggle)
+                {
+                    velocity.X += (float)((throttle/100)*0.25*Math.Sin(angle*Math.PI/180));
+                    velocity.Y -= (float)((throttle/100)*0.25*Math.Cos(angle*Math.PI/180));
+
+                    rocketClr = Color.RED;
+                }
+
                 //gravity
-                
                 velocity.Y += 0.1f;
 
                 //simulate
@@ -73,14 +90,29 @@ namespace Raket
                     }
                 }
 
+                //grid
+                for (var i = ((int)Math.Round((rocketSqr.x - screenWidth) / gridScale)); i < ((int)Math.Round((rocketSqr.x + screenWidth) / gridScale)); i++)
+                {
+                    Raylib.DrawLine((int)(i * gridScale), (int)(rocketSqr.y - screenHeight / 2), (int)(i * gridScale), (int)(rocketSqr.y + screenHeight / 2), Color.GRAY);
+                }
+                for (var i = ((int)Math.Round((rocketSqr.y - screenHeight) / gridScale)); i < ((int)Math.Round((rocketSqr.y + screenHeight) / gridScale)); i++)
+                {
+                    Raylib.DrawLine((int)(rocketSqr.x - screenWidth / 2), (int)(i * gridScale), (int)(rocketSqr.x + screenWidth / 2), (int)(i * gridScale), Color.GRAY);
+                }
+
                 Raylib.DrawRectanglePro(rocketSqr, origin, angle, rocketClr);
+
+                Raylib.EndMode2D();
 
                 Raylib.DrawText($"X: {rocketSqr.x}", 10, 5, 10, Color.BLACK);
                 Raylib.DrawText($"Y: {rocketSqr.y}", 10, 15, 10, Color.BLACK);
                 Raylib.DrawText($"XV: {velocity.X}", 10, 25, 10, Color.BLACK);
                 Raylib.DrawText($"YV: {velocity.Y}", 10, 35, 10, Color.BLACK);
 
-                //camera.target = position;
+                Raylib.DrawRectangle(0, screenHeight-100, 40, 100, Color.GRAY);
+                Raylib.DrawRectangle(0, (int)(screenHeight-throttle), 40, (int)throttle, Color.GREEN);
+
+                camera.target = new Vector2(rocketSqr.x, rocketSqr.y);
 
                 Raylib.EndDrawing();
             }
