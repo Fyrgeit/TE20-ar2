@@ -20,6 +20,8 @@ namespace Raket
 
             float gridScale = 100;
 
+            Texture2D rocket = Raylib.LoadTexture(@"./rocket.png");
+
             Rectangle rocketSqr = new Rectangle();
             rocketSqr.x = 100;
             rocketSqr.y = 100;
@@ -31,7 +33,6 @@ namespace Raket
 
             float angle = 0;
             float throttle = 0;
-            bool toggle = false;
 
             Color rocketClr = new Color(255, 0, 0, 255);
             Color bgClr = new Color(255, 255, 255, 255);
@@ -48,14 +49,11 @@ namespace Raket
 
                 Raylib.DrawRectangle(0, 450, screenWidth, 50, Color.BLUE);
 
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE))
-                    toggle = !toggle;
-
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_UP) && throttle < 100)
-                    throttle ++;
+                    throttle += 2;
                 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN) && throttle > 0)
-                    throttle --;
+                    throttle -= 2;
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
                     angle += 3;
@@ -64,13 +62,8 @@ namespace Raket
                     angle -= 3;
 
                 //thrust
-                if (toggle)
-                {
-                    velocity.X += (float)((throttle/100)*0.25*Math.Sin(angle*Math.PI/180));
-                    velocity.Y -= (float)((throttle/100)*0.25*Math.Cos(angle*Math.PI/180));
-
-                    rocketClr = Color.RED;
-                }
+                velocity.X += (float)((throttle/100)*0.25*Math.Sin(angle*Math.PI/180));
+                velocity.Y -= (float)((throttle/100)*0.25*Math.Cos(angle*Math.PI/180));
 
                 //gravity
                 velocity.Y += 0.1f;
@@ -100,6 +93,8 @@ namespace Raket
                     Raylib.DrawLine((int)(rocketSqr.x - screenWidth / 2), (int)(i * gridScale), (int)(rocketSqr.x + screenWidth / 2), (int)(i * gridScale), Color.GRAY);
                 }
 
+                //raketen
+                Raylib.DrawTexture(rocket, (int)rocketSqr.x - 50, (int)rocketSqr.y - 90, Color.WHITE);
                 Raylib.DrawRectanglePro(rocketSqr, origin, angle, rocketClr);
 
                 Raylib.EndMode2D();
