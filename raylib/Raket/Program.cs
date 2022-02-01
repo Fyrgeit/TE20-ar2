@@ -31,8 +31,11 @@ namespace Raket
             Vector2 origin = new Vector2(10, 25);
             Vector2 velocity = new Vector2(0, 0);
 
+            Vector2 camPos = new Vector2(0, 0);
+
             float angle = 0;
             float throttle = 0;
+            bool toggle = false;
 
             Color rocketClr = new Color(255, 0, 0, 255);
             Color bgClr = new Color(255, 255, 255, 255);
@@ -61,9 +64,17 @@ namespace Raket
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
                     angle -= 3;
 
-                //thrust
-                velocity.X += (float)((throttle/100)*0.25*Math.Sin(angle*Math.PI/180));
-                velocity.Y -= (float)((throttle/100)*0.25*Math.Cos(angle*Math.PI/180));
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE))
+                    toggle = true;
+                else
+                    toggle = false;
+
+                //thrust,
+                if (toggle)
+                {   
+                    velocity.X += (float)((throttle/100)*0.25*Math.Sin(angle*Math.PI/180));
+                    velocity.Y -= (float)((throttle/100)*0.25*Math.Cos(angle*Math.PI/180));
+                }
 
                 //gravity
                 velocity.Y += 0.1f;
@@ -97,6 +108,10 @@ namespace Raket
                 Raylib.DrawTexture(rocket, (int)rocketSqr.x - 50, (int)rocketSqr.y - 90, Color.WHITE);
                 Raylib.DrawRectanglePro(rocketSqr, origin, angle, rocketClr);
 
+                camPos.X += (rocketSqr.x - camPos.X)/10f;
+                camPos.Y += (rocketSqr.y - camPos.Y)/10f;
+                camera.target = camPos;
+
                 Raylib.EndMode2D();
 
                 Raylib.DrawText($"X: {rocketSqr.x}", 10, 5, 10, Color.BLACK);
@@ -107,7 +122,6 @@ namespace Raket
                 Raylib.DrawRectangle(0, screenHeight-100, 40, 100, Color.GRAY);
                 Raylib.DrawRectangle(0, (int)(screenHeight-throttle), 40, (int)throttle, Color.GREEN);
 
-                camera.target = new Vector2(rocketSqr.x, rocketSqr.y);
 
                 Raylib.EndDrawing();
             }
