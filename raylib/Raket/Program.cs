@@ -18,7 +18,7 @@ namespace Raket
             camera.zoom = 1f;
             camera.offset = new Vector2(screenWidth / 2, screenHeight/2);
 
-            float gridScale = 100;
+            float gridScale = 500;
 
             Texture2D rocket = Raylib.LoadTexture(@"./rocket.png");
 
@@ -95,21 +95,21 @@ namespace Raket
                 }
 
                 //grid
-                for (var i = ((int)Math.Round((rocketSqr.x - screenWidth) / gridScale)); i < ((int)Math.Round((rocketSqr.x + screenWidth) / gridScale)); i++)
+                for (var i = ((int)Math.Round((camPos.X - screenWidth) / gridScale)); i < ((int)Math.Round((camPos.X + screenWidth) / gridScale)); i++)
                 {
-                    Raylib.DrawLine((int)(i * gridScale), (int)(rocketSqr.y - screenHeight / 2), (int)(i * gridScale), (int)(rocketSqr.y + screenHeight / 2), Color.GRAY);
+                    Raylib.DrawLine((int)(i * gridScale), (int)(camPos.Y - screenHeight / 2), (int)(i * gridScale), (int)(camPos.Y + screenHeight / 2), Color.GRAY);
                 }
-                for (var i = ((int)Math.Round((rocketSqr.y - screenHeight) / gridScale)); i < ((int)Math.Round((rocketSqr.y + screenHeight) / gridScale)); i++)
+                for (var i = ((int)Math.Round((camPos.Y - screenHeight) / gridScale)); i < ((int)Math.Round((camPos.Y + screenHeight) / gridScale)); i++)
                 {
-                    Raylib.DrawLine((int)(rocketSqr.x - screenWidth / 2), (int)(i * gridScale), (int)(rocketSqr.x + screenWidth / 2), (int)(i * gridScale), Color.GRAY);
+                    Raylib.DrawLine((int)(camPos.X - screenWidth / 2), (int)(i * gridScale), (int)(camPos.X + screenWidth / 2), (int)(i * gridScale), Color.GRAY);
                 }
 
                 //raketen
                 Raylib.DrawTexture(rocket, (int)rocketSqr.x - 50, (int)rocketSqr.y - 90, Color.WHITE);
                 Raylib.DrawRectanglePro(rocketSqr, origin, angle, rocketClr);
 
-                camPos.X += (rocketSqr.x - camPos.X)/10f;
-                camPos.Y += (rocketSqr.y - camPos.Y)/10f;
+                camPos.X += (rocketSqr.x - camPos.X)/5f;
+                camPos.Y += (rocketSqr.y - camPos.Y)/5f;
                 camera.target = camPos;
 
                 Raylib.EndMode2D();
